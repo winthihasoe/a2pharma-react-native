@@ -4,7 +4,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Button,
 } from "react-native";
 
 export default function Search({ handleChange }) {
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
   },
   input: {
-    width: 300,
+    width: 320,
     height: 44,
     backgroundColor: "#ddd",
     paddingHorizontal: 8,
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
   },
   searchBtn: {
     marginTop: 20,
-    width: 300,
+    width: 320,
     height: 44,
     backgroundColor: "coral",
     paddingHorizontal: 8,

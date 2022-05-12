@@ -4,6 +4,7 @@ import { useState } from "react/cjs/react.development";
 import Header from "./components/Header";
 import Logo from "./components/Logo";
 import Search from "./components/Search";
+import Main from "./components/Main";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -18,6 +19,7 @@ export default function App() {
       <View style={styles.bodyContainer}>
         <Logo />
         <Search handleChange={handleChange} />
+        <Main />
       </View>
       {/* end Body section  */}
     </View>
@@ -28,5 +30,6 @@ const styles = StyleSheet.create({
   bodyContainer: {
     // alignItems: "center",
     // justifyContent: "center",
+    // backgroundColor: "#ddd",
   },
 });
