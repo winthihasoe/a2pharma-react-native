@@ -24,7 +24,7 @@ export default function Search({ handleChange }) {
 
 const styles = StyleSheet.create({
   searchContainer: {
-    paddingHorizontal: 50,
+    paddingHorizontal: 30,
     paddingVertical: 38,
     width: "100%",
     borderBottomColor: "#ddd",

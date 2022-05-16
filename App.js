@@ -1,30 +1,27 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { useState } from "react/cjs/react.development";
-import Header from "./components/Header";
-import Logo from "./components/Logo";
-import Search from "./components/Search";
-import Main from "./components/Main";
+import { StyleSheet } from "react-native";
 
-export default function App() {
-  const [text, setText] = useState("");
-  const handleChange = (val) => setText(val);
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import HomeScreen from "./routes/Home";
+import AllDrugs from "./routes/AllDrugs";
+
+const App = () => {
+  const Stack = createNativeStackNavigator();
   return (
-    <View>
-      {/* Header section */}
-      <Header />
-      {/* end Header section  */}
-
-      {/* Body section  */}
-      <View style={styles.bodyContainer}>
-        <Logo />
-        <Search handleChange={handleChange} />
-        <Main />
-      </View>
-      {/* end Body section  */}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="AllDrugs"
+          component={AllDrugs}
+          options={{ title: "All drugs" }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
   bodyContainer: {
@@ -33,3 +30,5 @@ const styles = StyleSheet.create({
     // backgroundColor: "#ddd",
   },
 });
+
+export default App;

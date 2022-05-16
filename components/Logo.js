@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     flexDirection: "row",
+    marginTop: 30,
   },
   logo: {
     fontSize: 50,

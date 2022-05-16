@@ -1,0 +1,44 @@
+{
+  /* Header section */
+}
+{
+  /* <Header /> */
+}
+{
+  /* end Header section  */
+}
+
+{
+  /* Body section  */
+}
+{
+  /* <View style={styles.bodyContainer}> */
+}
+{
+  /* <Logo /> */
+}
+{
+  /* <Text>{text}</Text> */
+}
+{
+  /* <Search handleChange={handleChange} /> */
+}
+{
+  /* <Main /> */
+}
+{
+  /* <Drugs drug={drug} /> */
+}
+{
+  /* </View> */
+}
+{
+  /* end Body section  */
+}
+const allDrugs = () => {
+    axios
+      .get(drugUrl)
+      .then((response) => setDrugs(response))
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
+  };
