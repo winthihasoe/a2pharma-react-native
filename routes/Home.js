@@ -7,27 +7,19 @@ import {
   Alert,
 } from "react-native";
 import Logo from "../components/Logo";
+import Search from "../components/Search";
 
 export default function Home({ navigation }) {
-  const clickHandaler = () => {
-    const url = "http://localhost:8000/api/drugs";
-    fetch(url)
-      .then((res) => res.json())
-      .then((resjson) => alert(JSON.stringify(resjson)))
-      .catch((err) => console.log(err));
-  };
   return (
-    <View>
+    <View style={styles.container}>
       <Logo />
       <View style={styles.mainContainer}>
-        <TouchableOpacity onPress={clickHandaler}>
+        <TouchableOpacity>
           <View style={[styles.btn, styles.shadowProp, styles.elevation]}>
             <Text style={styles.btnText}>Add New Drug</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("AllDrugs", clickHandaler)}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate("AllDrugs")}>
           <View style={[styles.btn, styles.shadowProp, styles.elevation]}>
             <Text style={styles.btnText}>Show Drug</Text>
           </View>
@@ -38,6 +30,10 @@ export default function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    justifyContent: "center",
+  },
   title: {
     paddingTop: 40,
   },

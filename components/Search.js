@@ -1,36 +1,21 @@
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 
-export default function Search({ handleChange }) {
+export default function Search({}) {
   return (
     <View style={styles.searchContainer}>
-      <TextInput
-        style={styles.input}
-        placeholder="Amlosun"
-        onChangeText={handleChange}
-      />
-
-      <View style={styles.searchBtn}>
-        <Text style={styles.searchText}>Search</Text>
-      </View>
+      <TextInput style={styles.input} placeholder="Search drug" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   searchContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 38,
     width: "100%",
-    borderBottomColor: "#ddd",
+    alignItems: "center",
+    marginTop: 10,
   },
   input: {
-    width: 320,
+    width: "100%",
     height: 44,
     backgroundColor: "#ddd",
     paddingHorizontal: 8,
