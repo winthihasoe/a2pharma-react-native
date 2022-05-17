@@ -14,7 +14,7 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <Logo />
       <View style={styles.mainContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("AddDrug")}>
           <View style={[styles.btn, styles.shadowProp, styles.elevation]}>
             <Text style={styles.btnText}>Add New Drug</Text>
           </View>
