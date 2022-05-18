@@ -7,7 +7,6 @@ import {
   Alert,
 } from "react-native";
 import Logo from "../components/Logo";
-import Search from "../components/Search";
 
 export default function Home({ navigation }) {
   return (

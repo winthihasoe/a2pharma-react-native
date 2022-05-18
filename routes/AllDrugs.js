@@ -7,6 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Search from "../components/Search";
@@ -18,7 +19,7 @@ export default function AllDrugs({ navigation }) {
   const [search, setsearch] = useState("");
 
   const allDrugs = () => {
-    const drugUrl = "https://jsonplaceholder.typicode.com/posts";
+    const drugUrl = "http://localhost:8000/api/drugs";
     fetch(drugUrl)
       .then((res) => res.json())
       .then((resjson) => {
@@ -37,7 +38,7 @@ export default function AllDrugs({ navigation }) {
   const searchFilter = (text) => {
     if (text) {
       const newData = drugs.filter((item) => {
-        const itemData = item.title ? item.title : "";
+        const itemData = item.drug_name ? item.drug_name : "";
         const textData = text;
         return itemData.indexOf(textData) > -1;
       });
@@ -76,12 +77,15 @@ export default function AllDrugs({ navigation }) {
           data={filterDrug}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <View style={styles.row}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ShowDrug")}
+              style={styles.row}
+            >
               <Text>
-                {item.id}. {item.title}
+                {item.id}. {item.drug_name}
               </Text>
-              <Text>{item.id} ks</Text>
-            </View>
+              <Text>{item.retail_price} ks</Text>
+            </TouchableOpacity>
           )}
         />
       )}
