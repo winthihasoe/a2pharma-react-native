@@ -66,7 +66,6 @@ const AddDrug = ({ navigation }) => {
                 value={drug_name}
                 onChangeText={(val) => setdrug_name(val)}
                 autoCorrect={false}
-                caretHidden={true}
                 clearButtonMode="while-editing"
                 autoFocus
               />
@@ -134,7 +133,7 @@ const AddDrug = ({ navigation }) => {
             renderItem={({ item }) => (
               <View style={styles.savedDataContainer}>
                 <Text style={{ fontSize: 20, marginBottom: 8 }}>
-                  -- Save Drug Detail --
+                  -- Saved Drug Detail --
                 </Text>
 
                 <Text>Drug Name: {item.drug_name}</Text>

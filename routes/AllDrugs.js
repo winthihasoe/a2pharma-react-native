@@ -78,7 +78,7 @@ export default function AllDrugs({ navigation }) {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("ShowDrug")}
+              onPress={() => navigation.navigate("ShowDrug", item)}
               style={styles.row}
             >
               <Text>
