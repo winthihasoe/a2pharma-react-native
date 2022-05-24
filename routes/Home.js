@@ -20,7 +20,14 @@ export default function Home({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("AllDrugs")}>
           <View style={[styles.btn, styles.shadowProp, styles.elevation]}>
-            <Text style={styles.btnText}>Show Drug</Text>
+            <Text style={styles.btnText}>Retail Price</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.mainContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("DoctorDrugs")}>
+          <View style={[styles.btn, styles.shadowProp, styles.elevation]}>
+            <Text style={styles.btnText}>Doctor Price</Text>
           </View>
         </TouchableOpacity>
       </View>

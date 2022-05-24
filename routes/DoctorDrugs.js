@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 
-export default function AllDrugs({ navigation }) {
+export default function DoctorDrugs({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [drugs, setDrugs] = useState([]);
   const [filterDrug, setfilterDrug] = useState([]);
@@ -67,7 +67,7 @@ export default function AllDrugs({ navigation }) {
         ]}
       >
         <Text style={{ fontWeight: "bold" }}>Drug Name</Text>
-        <Text style={{ fontWeight: "bold" }}>Retail Price</Text>
+        <Text style={{ fontWeight: "bold" }}>Doctor Price</Text>
       </View>
       {isLoading ? (
         <ActivityIndicator size="small" color="coral" />
@@ -83,7 +83,7 @@ export default function AllDrugs({ navigation }) {
               <Text>
                 {item.id}. {item.drug_name}
               </Text>
-              <Text>{item.retail_price} ks</Text>
+              <Text>{item.dr_price} ks</Text>
             </TouchableOpacity>
           )}
         />
