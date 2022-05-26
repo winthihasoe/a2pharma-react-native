@@ -5,21 +5,7 @@ import { AuthContext } from "../../context/AuthProvider";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext);
-
-  const submit = () => {
-    fetch("http://localhost:8000/api/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-  };
+  const { login, error, isLoading } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -34,6 +20,7 @@ export default function Login({ navigation }) {
         >
           Login
         </Text>
+        {error && <Text style={{ color: "red" }}>{error}</Text>}
         <Text style={styles.labelFor}>Username</Text>
         <TextInput
           style={styles.inputField}
@@ -49,7 +36,6 @@ export default function Login({ navigation }) {
           style={styles.inputField}
           autoCorrect={false}
           clearButtonMode="while-editing"
-          keyboardType="numeric"
           secureTextEntry={true}
           value={password}
           onChangeText={(val) => setPassword(val)}

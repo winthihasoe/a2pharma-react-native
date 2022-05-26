@@ -15,8 +15,9 @@ import RegisterScreen from "./routes/Auth/RegisterScreen";
 import { AuthContext, AuthProvider } from "./context/AuthProvider";
 import { useState, useContext } from "react";
 import { useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
 
-const App = () => {
+const Root = () => {
   const Stack = createNativeStackNavigator();
 
   const { logout } = useContext(AuthContext);
@@ -98,9 +99,17 @@ const App = () => {
   useEffect(() => {
     // check if user is logged in or not
     //check securestore fof the user object/token
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    SecureStore.getItemAsync("user")
+      .then((userString) => {
+        if (userString) {
+          setUser(JSON.parse(userString));
+        }
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
   }, []);
 
   if (isLoading) {
@@ -134,4 +143,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Root;
