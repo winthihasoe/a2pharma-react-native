@@ -45,6 +45,13 @@ const Root = () => {
             headerRight: () => (
               <Button onPress={logout} title="Logout" color="red" />
             ),
+            headerLeft: () => (
+              <Button
+                onPress={() => alert(`Username is ${user.name}`)}
+                title={user.name}
+                color="white"
+              />
+            ),
           }}
         />
 
@@ -80,12 +87,12 @@ const Root = () => {
         screenOptions={{ headerShown: false, headerBackTitleVisible: false }}
       >
         <Stack.Screen
-          name="Login"
+          name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Register"
+          name="RegisterScreen"
           component={RegisterScreen}
           options={{ headerShown: false }}
         />

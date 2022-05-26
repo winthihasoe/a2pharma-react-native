@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 
@@ -15,38 +22,48 @@ export default function Login({ navigation }) {
             textAlign: "center",
             fontSize: 20,
             color: "#222",
-            marginBottom: 30,
+            marginBottom: 20,
           }}
         >
           Login
         </Text>
-        {error && <Text style={{ color: "red" }}>{error}</Text>}
-        <Text style={styles.labelFor}>Username</Text>
+        {error && (
+          <Text style={{ color: "red", marginBottom: 15 }}>{error}</Text>
+        )}
         <TextInput
           style={styles.inputField}
           autoCorrect={false}
           autoCapitalize="none"
           clearButtonMode="while-editing"
           autoFocus
+          onChangeText={setEmail}
           value={email}
-          onChangeText={(val) => setEmail(val)}
+          placeholder="Email"
         />
-        <Text style={styles.labelFor}>Password</Text>
         <TextInput
           style={styles.inputField}
           autoCorrect={false}
           clearButtonMode="while-editing"
           secureTextEntry={true}
+          onChangeText={setPassword}
           value={password}
-          onChangeText={(val) => setPassword(val)}
+          placeholder="password"
         />
-        <Button
+
+        <TouchableOpacity
+          style={styles.btnContainer}
           onPress={() => login(email, password)}
-          title="Submit"
-          color="coral"
-        />
-        <Text>{email}</Text>
-        <Text>{password}</Text>
+        >
+          {isLoading && <ActivityIndicator color="white"></ActivityIndicator>}
+
+          <Text style={{ color: "white", fontSize: 18 }}>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ alignItems: "center", marginTop: 20 }}
+          onPress={() => navigation.navigate("RegisterScreen")}
+        >
+          <Text style={{ color: "coral" }}>Resgister</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -65,7 +82,7 @@ const styles = StyleSheet.create({
     borderColor: "#eee",
     padding: 50,
     borderRadius: 20,
-    marginTop: 100,
+    marginTop: 60,
   },
   labelFor: {
     fontSize: 15,
@@ -88,5 +105,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
   },
 });

@@ -2,16 +2,19 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar,
   TouchableOpacity,
-  Alert,
+  ActivityIndicator,
 } from "react-native";
 import Logo from "../components/Logo";
+import { AuthContext } from "../context/AuthProvider";
+import { useContext } from "react";
 
 export default function Home({ navigation }) {
+  const { logout, isLoading } = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Logo />
+      {isLoading && <ActivityIndicator color="gray"></ActivityIndicator>}
       <View style={styles.mainContainer}>
         <TouchableOpacity onPress={() => navigation.navigate("AddDrug")}>
           <View style={[styles.btn, styles.shadowProp, styles.elevation]}>

@@ -9,30 +9,36 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import axiosConfig from "../helpers/axiosConfig";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function AllDrugs({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [drugs, setDrugs] = useState([]);
   const [filterDrug, setfilterDrug] = useState([]);
   const [search, setsearch] = useState("");
-
-  const allDrugs = () => {
-    const drugUrl = "http://localhost:8000/api/drugs";
-    fetch(drugUrl)
-      .then((res) => res.json())
-      .then((resjson) => {
-        setDrugs(resjson);
-        setfilterDrug(resjson);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
-  };
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     allDrugs();
-    return () => {};
   }, []);
+
+  function allDrugs() {
+    axiosConfig.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${user.token}`;
+    axiosConfig
+      .get("/drugs")
+      .then((response) => {
+        setDrugs(response.data);
+        setfilterDrug(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const searchFilter = (text) => {
     if (text) {

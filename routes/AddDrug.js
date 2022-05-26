@@ -5,12 +5,15 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Keyboard,
   Platform,
-  Button,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axiosConfig from "../helpers/axiosConfig";
+import { AuthContext } from "../context/AuthProvider";
 
 const AddDrug = ({ navigation }) => {
   const [drug_name, setdrug_name] = useState("");
@@ -20,37 +23,59 @@ const AddDrug = ({ navigation }) => {
   const [supplier, setSupplier] = useState("");
   const [purchaseDate, setPurchaseDate] = useState("");
 
-  const [showButton, setShowButton] = useState(false);
+  const [showButton, setShowButton] = useState(true);
   const [newDrug, setNewDrug] = useState([]);
 
+  const { user } = useContext(AuthContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const add = () => {
+    if (drug_name.length < 2) {
+      return alert("Drug name is required");
+    }
+
+    if (retailPrice.length < 1) {
+      return alert("Please add Retail price");
+    }
     setNewDrug([
       { drug_name, buyPrice, retailPrice, drPrice, supplier, purchaseDate },
     ]);
+
+    setIsLoading(true);
+
+    axiosConfig.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${user.token}`;
+    axiosConfig
+      .post("/drugs", {
+        drug_name,
+        retail_price: retailPrice,
+        dr_price: drPrice,
+        buying_price: buyPrice,
+        supplier,
+        purchase_date: purchaseDate,
+      })
+      .then((response) => {
+        setIsLoading(false);
+        setError(null);
+      })
+      .catch((error) => {
+        setError(error.response);
+        setIsLoading(false);
+      });
+
     setdrug_name("");
     setBuyPrice("");
     setRetailPrice("");
     setDrPrice("");
     setSupplier("");
     setPurchaseDate("");
-    fetch("http://localhost:8000/api/drugs", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        drug_name: drug_name,
-        retail_price: retailPrice,
-        dr_price: drPrice,
-        buying_price: buyPrice,
-        supplier: supplier,
-        purchase_date: purchaseDate,
-      }),
-    });
   };
 
   const Separator = () => <View style={styles.separator} />;
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -118,13 +143,26 @@ const AddDrug = ({ navigation }) => {
                 value={purchaseDate}
                 onChangeText={(val) => {
                   setPurchaseDate(val);
-                  setShowButton(true);
                 }}
                 keyboardType="numeric"
               />
             </View>
           </View>
-          {showButton && <Button onPress={add} title="Done" color="coral" />}
+          {showButton && (
+            <TouchableOpacity
+              onPress={add}
+              style={{
+                backgroundColor: "coral",
+                borderRadius: 10,
+                padding: 10,
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              {isLoading && <ActivityIndicator color="white" />}
+              <Text style={{ textAlign: "center", color: "white" }}>Done</Text>
+            </TouchableOpacity>
+          )}
 
           <Separator />
 

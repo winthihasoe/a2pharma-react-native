@@ -9,7 +9,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import axiosConfig from "../helpers/axiosConfig";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function DoctorDrugs({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,22 +19,27 @@ export default function DoctorDrugs({ navigation }) {
   const [filterDrug, setfilterDrug] = useState([]);
   const [search, setsearch] = useState("");
 
-  const allDrugs = () => {
-    const drugUrl = "http://localhost:8000/api/drugs";
-    fetch(drugUrl)
-      .then((res) => res.json())
-      .then((resjson) => {
-        setDrugs(resjson);
-        setfilterDrug(resjson);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
-  };
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     allDrugs();
-    return () => {};
   }, []);
+
+  function allDrugs() {
+    axiosConfig.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${user.token}`;
+    axiosConfig
+      .get("/drugs")
+      .then((response) => {
+        setDrugs(response.data);
+        setfilterDrug(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const searchFilter = (text) => {
     if (text) {
@@ -83,7 +90,11 @@ export default function DoctorDrugs({ navigation }) {
               <Text>
                 {item.id}. {item.drug_name}
               </Text>
-              <Text>{item.dr_price} ks</Text>
+              <Text>
+                {/* check for dr price if not, show retail price */}
+                {/* please show latest update price in this table  */}
+                {item.dr_price ? item.dr_price : item.retail_price} ks
+              </Text>
             </TouchableOpacity>
           )}
         />
