@@ -1,15 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function ShowDrug({ route, navigation }) {
-  const {
-    id,
-    drug_name,
-    retail_price,
-    dr_price,
-    buying_price,
-    supplier,
-    purchase_date,
-  } = route.params;
+  const item = route.params;
   return (
     <View style={styles.container}>
       <Text
@@ -20,28 +12,36 @@ export default function ShowDrug({ route, navigation }) {
           textAlign: "center",
         }}
       >
-        {drug_name}
+        {item.drug_name}
       </Text>
       <View style={styles.row}>
         <Text style={styles.label}>Retail Price: </Text>
-        <Text style={styles.label}>{retail_price} ks</Text>
+        <Text style={styles.label}>{item.retail_price} ks</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Doctor Price: </Text>
-        <Text style={styles.label}>{dr_price} ks</Text>
+        <Text style={styles.label}>{item.dr_price} ks</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Buying Price: </Text>
-        <Text style={styles.label}>{buying_price} ks</Text>
+        <Text style={styles.label}>{item.buying_price} ks</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Supplier: </Text>
-        <Text style={styles.label}>{supplier}</Text>
+        <Text style={styles.label}>{item.supplier}</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Purchased at: </Text>
-        <Text style={styles.label}>{purchase_date}</Text>
+        <Text style={styles.label}>{item.purchase_date}</Text>
       </View>
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => navigation.navigate("EditDrug", item)}
+      >
+        <Text style={{ color: "white", fontSize: 18, textAlign: "center" }}>
+          Edit
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -70,5 +70,11 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     fontSize: 16,
     fontStyle: "italic",
+  },
+  btn: {
+    backgroundColor: "coral",
+    marginTop: 15,
+    padding: 10,
+    borderRadius: 5,
   },
 });

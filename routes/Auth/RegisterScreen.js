@@ -26,8 +26,8 @@ export default function RegisterScreen({ navigation }) {
       password_confirmation: confirmedPassword,
     })
       .then((response) => {
-        Alert.alert("Account register! Please Login");
-        navigation.navigate("LoginScreen");
+        Alert.alert("Registeration successful! ");
+
         setError(null);
         setIsLoading(false);
       })

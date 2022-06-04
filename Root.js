@@ -8,16 +8,17 @@ import AllDrugs from "./routes/AllDrugs";
 import AddDrug from "./routes/AddDrug";
 import ShowDrug from "./routes/ShowDrug";
 import DoctorDrugs from "./routes/DoctorDrugs";
+import EditDrug from "./routes/EditDrug";
 
 import LoginScreen from "./routes/Auth/LoginScreen";
 import RegisterScreen from "./routes/Auth/RegisterScreen";
 
-import { AuthContext, AuthProvider } from "./context/AuthProvider";
+import { AuthContext } from "./context/AuthProvider";
 import { useState, useContext } from "react";
 import { useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 
-const Root = () => {
+const Root = ({ navigation }) => {
   const Stack = createNativeStackNavigator();
 
   const { logout } = useContext(AuthContext);
@@ -49,7 +50,7 @@ const Root = () => {
               <Button
                 onPress={() => alert(`Username is ${user.name}`)}
                 title={user.name}
-                color="white"
+                color="#ddd"
               />
             ),
           }}
@@ -64,13 +65,23 @@ const Root = () => {
         <Stack.Screen
           name="AllDrugs"
           component={AllDrugs}
-          options={{ title: "All Drugs in Retail Price" }}
+          options={{
+            title: "All Drugs in Retail Price",
+          }}
         />
 
         <Stack.Screen
           name="ShowDrug"
           component={ShowDrug}
-          options={{ title: "A2 Pharmacy" }}
+          options={{
+            title: "A2 Pharmacy",
+          }}
+        />
+
+        <Stack.Screen
+          name="EditDrug"
+          component={EditDrug}
+          options={{ title: "Edit Drug" }}
         />
 
         <Stack.Screen

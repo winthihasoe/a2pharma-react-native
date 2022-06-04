@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import axiosConfig from "../helpers/axiosConfig";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(AuthProvider);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         error,
         login: (email, password) => {
-          //communicate with backend and store token in SecureStore
           setIsLoading(true);
           axiosConfig
             .post("/login", {
@@ -37,9 +36,9 @@ export const AuthProvider = ({ children }) => {
               setIsLoading(false);
             })
             .catch((error) => {
-              console.log(error.response);
-              setError(error.response.data.message);
               setIsLoading(false);
+              setError(error.response.message);
+              console.log(error.response);
             });
         },
         logout: () => {
@@ -58,7 +57,7 @@ export const AuthProvider = ({ children }) => {
             })
             .catch((error) => {
               console.log(error.response);
-              setError(error.response.data.message);
+              setError(error.response.message);
               setIsLoading(false);
             });
         },
