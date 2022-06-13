@@ -34,6 +34,14 @@ export default function ShowDrug({ route, navigation }) {
         <Text style={styles.label}>Purchased at: </Text>
         <Text style={styles.label}>{item.purchase_date}</Text>
       </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Created at: </Text>
+        <Text style={styles.label}>{item.created_at.slice(0, 10)}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Updated at: </Text>
+        <Text style={styles.label}>{item.updated_at.slice(0, 10)}</Text>
+      </View>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => navigation.navigate("EditDrug", item)}

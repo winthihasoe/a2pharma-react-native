@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "a2-pharma",
-    "slug": "a2-pharma",
+    "name": "a2pharma",
+    "slug": "a2pharma",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,15 +14,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wths.a2pharma"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.wths.a2pharma"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -9,9 +9,11 @@ import {
 } from "react-native";
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
+import axiosConfig from "../helpers/axiosConfig";
 
 export default function EditDrug({ route, navigation }) {
   const {
+    id,
     drug_name,
     retail_price,
     buying_price,
@@ -25,12 +27,43 @@ export default function EditDrug({ route, navigation }) {
   const [buyingPrice, setBuyingPrice] = useState(buying_price);
   const [supplierName, setSupplierName] = useState(supplier);
   const [purchaseDate, setPurchaseDate] = useState(purchase_date);
+  const [item, setitem] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const update = () => {
-    if (!drugName || !retailPrice) {
-      return alert("Drug name and retail price is required!");
+    if (drugName.length < 2) {
+      return alert("Drug name is required");
     }
-    // Update to database code here
+
+    if (retailPrice.length < 2) {
+      return alert("Please add Retail price");
+    }
+
+    setIsLoading(true);
+
+    // axiosConfig.defaults.headers.common[
+    //   "Authorization"
+    // ] = `Bearer ${user.token}`;
+    axiosConfig
+      .put(`/drugs/${id}`, {
+        drug_name: drugName,
+        retail_price: retailPrice,
+        dr_price: drPrice,
+        buying_price: buyingPrice,
+        supplier: supplierName,
+        purchase_date: purchaseDate,
+      })
+      .then((response) => {
+        setIsLoading(false);
+        setError(null);
+        navigation.navigate("Home");
+        alert("Drug Updated!");
+      })
+      .catch((error) => {
+        setError(error.response);
+        setIsLoading(false);
+      });
   };
 
   return (
