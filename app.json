@@ -14,19 +14,18 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.wths.a2pharma"
+      "bundleIdentifier": "a2medicalsupply"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.wths.a2pharma"
+      "package": "com.a2medicalsupply.a2pharma",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
